@@ -1,0 +1,20 @@
+name: space recover
+
+# I want to control this manualy
+on:
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    name: Build my project ✨
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: false
+      - chmod_script:
+        run chmod +x /home/runner/work/kart/kart/.github/workflows/scripts/free_disk_space.sh
+      - clean_up:
+         run bash  /home/runner/work/kart/kart/.github/workflows/scripts/free_disk_space.sh

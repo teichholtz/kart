@@ -15,7 +15,7 @@ jobs:
         with:
           lfs: false
       - name: space before
-        run df -h
+        run: df -h
       - name: remove images
         run:  docker rmi $(docker image ls -aq)
 

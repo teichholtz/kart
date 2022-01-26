@@ -14,8 +14,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: false
+      - name: space before
+        run df -h
+      - name: remove images
+        run:  docker rmi $(docker image ls -aq)
+
       - name: list docker images
         run: docker image ls -a 
-        
+      - name: space after
+        run: df -h
         
         #  sh /home/runner/work/kart/kart/.github/workflows/scripts/free_disk_space.sh

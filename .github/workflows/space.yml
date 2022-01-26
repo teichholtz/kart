@@ -14,5 +14,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: false
-      - name: cleanup
-        run: sh /home/runner/work/kart/kart/.github/workflows/scripts/free_disk_space.sh
+      - name: list docker images
+        run: docker image ls -a 
+        
+        
+        #  sh /home/runner/work/kart/kart/.github/workflows/scripts/free_disk_space.sh

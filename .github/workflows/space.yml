@@ -16,10 +16,12 @@ jobs:
           lfs: false
       - name: space before
         run: df -h
+      - name: list docker images before
+        run: docker image ls -a
       - name: remove images
         run:  docker rmi $(docker image ls -aq)
 
-      - name: list docker images
+      - name: list docker images after
         run: docker image ls -a 
       - name: space after
         run: df -h

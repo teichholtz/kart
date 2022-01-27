@@ -9,6 +9,13 @@ jobs:
     name: Build my project ✨
     runs-on: ubuntu-latest
     steps:
+    
+    # Checkout (we need to checkout first so we have the disk check script)
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: false
+    
     # lets clean up space before doing any work
       
       - name: space before
@@ -28,12 +35,8 @@ jobs:
       - name: space after running script
         run: df -h
 
-      # Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          lfs: false
-
+    # disk recover space is done, lets rock the build now
+    
       # Cache
       - uses: actions/cache@v2
         with:

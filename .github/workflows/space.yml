@@ -28,5 +28,5 @@ jobs:
         
       - name: run-space-script
         run: sh /home/runner/work/kart/kart/.github/workflows/scripts/free_disk_space.sh
-      -name: space after running script
+      - name: space after running script
         run: df -h

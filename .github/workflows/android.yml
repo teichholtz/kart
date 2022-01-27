@@ -1,4 +1,4 @@
-name: Actions 
+name: Actions Android build
 
 # I want to control this manualy
 on:
@@ -11,10 +11,6 @@ jobs:
     steps:
     # lets clean up space before doing any work
       
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          lfs: false
       - name: space before
         run: df -h
       - name: list docker images before

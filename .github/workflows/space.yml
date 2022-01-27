@@ -1,3 +1,4 @@
+
 name: space recover
 
 # I want to control this manualy
@@ -30,3 +31,12 @@ jobs:
         run: sh /home/runner/work/kart/kart/.github/workflows/scripts/free_disk_space.sh
       - name: space after running script
         run: df -h
+      # lets try removing a couple of other directories
+      - name: remove dotnet and boost
+        run: | 
+            rm -rf /usr/share/dotnet/
+            rm -rf "/usr/local/share/boost"
+            rm -rf "$AGENT_TOOLSDIRECTORY"
+      - name: disk space again
+        run: df -h
+

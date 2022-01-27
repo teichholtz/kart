@@ -9,6 +9,29 @@ jobs:
     name: Build my project ✨
     runs-on: ubuntu-latest
     steps:
+    # lets clean up space before doing any work
+      
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: false
+      - name: space before
+        run: df -h
+      - name: list docker images before
+        run: docker image ls -a
+      - name: remove images
+        run:  docker rmi $(docker image ls -aq)
+
+      - name: list docker images after
+        run: docker image ls -a 
+      - name: space after
+        run: df -h
+        
+      - name: run-space-script
+        run: sh /home/runner/work/kart/kart/.github/workflows/scripts/free_disk_space.sh
+      - name: space after running script
+        run: df -h
+
       # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2

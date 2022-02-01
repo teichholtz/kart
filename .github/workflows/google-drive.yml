@@ -17,7 +17,9 @@ jobs:
       - name: transfer
         run: |
           echo "test" > test-file
-          ls /tmp
+          pwd
+          ls -lt
+          cat test-file
 
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main

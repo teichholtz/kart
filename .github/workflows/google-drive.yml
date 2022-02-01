@@ -16,14 +16,14 @@ jobs:
         run: df -h
       - name: transfer
         run: |
-          echo "test" > /tmp/test-file
+          echo "test" > test-file
           ls /tmp
 
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
-          filename: "/tmp/test-file"
+          filename: "test-file"
           folderId: ${{ secrets.FOLDER_ID }}
           name: "test-file-02-01" # optional string
           overwrite: "true" # optional boolean

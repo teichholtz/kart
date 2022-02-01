@@ -7,14 +7,11 @@ on:
 
 jobs:
   build:
-    name: Build my project ✨
+    name: Build my project 
     runs-on: ubuntu-latest
     steps:
-      # Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          lfs: false
+      # space
+      
       - name: space before
         run: df -h
       - name: transfer
@@ -22,15 +19,10 @@ jobs:
           echo "test" > /tmp/test-file
           ls /tmp
 
-
-
-      - name: disk space again
-        run: df -h
-
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
-          credentials: ${{ secrets.google_credentials }}
+          credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
           filename: "/tmp/test-file"
           folderId: ${{ secrets.FOLDER_ID }}
           name: "test-file-02-01" # optional string

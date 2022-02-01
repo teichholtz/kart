@@ -25,7 +25,7 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
-          filename: "/home/runner/work/kart/kart/test-file"
+          filename: "/home/runner/work/kart/kart/test-file-fake"
           folderId: ${{ secrets.FOLDER_ID }}
           name: "test-file-02-01" # optional string
           overwrite: "true" # optional boolean

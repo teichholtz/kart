@@ -18,17 +18,17 @@ jobs:
         run: |
           # get the namne!
           FILENAME=ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk
-          echo "test" > $FILENAME
+          echo "test" > $(FILENAME)
           pwd
           ls -lt
-          cat $FILENAME
+          cat $(FILENAME)
 
 
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
-          filename: "/github/workspace/$FILENAME"
+          filename: "/github/workspace/$(FILENAME)"
           folderId: ${{ secrets.FOLDER_ID }}
           # name: 'Android/test-file-02-07'  # optional string
           overwrite: "true" # optional boolean

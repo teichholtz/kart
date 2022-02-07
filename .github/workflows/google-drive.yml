@@ -17,7 +17,7 @@ jobs:
       - name: transfer
         run: |
           # get the namne!
-          FILENAME=ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk
+          export FILENAME=ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk
           echo "test" > $(FILENAME)
           pwd
           ls -lt

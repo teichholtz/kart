@@ -27,5 +27,5 @@ jobs:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
           filename: "/github/workspace/test-file"
           folderId: ${{ secrets.FOLDER_ID }}
-          name: "Android/test-file-02-07" # optional string
+          name: "Android\/test-file-02-07" # optional string
           overwrite: "true" # optional boolean

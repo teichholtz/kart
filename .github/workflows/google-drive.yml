@@ -28,7 +28,7 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
-          filename: "/github/workspace/${{ env.FILENAME }} "
+          filename: ${{ env.FILENAME }}
           folderId: ${{ secrets.FOLDER_ID }}
           # name: 'Android/test-file-02-07'  # optional string
           overwrite: "true" # optional boolean

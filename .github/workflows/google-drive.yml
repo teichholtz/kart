@@ -23,12 +23,18 @@ jobs:
           ls -lt
           cat ${{ env.FILENAME }}
 
+    # ok, lets just use a plain name like we had before
+
+      - name: make plain
+        run: echo "blah" > test_file
+
+
 
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
-          filename: ${{ env.FILENAME }}
+          filename: test_file
           folderId: ${{ secrets.FOLDER_ID }}
           # name: 'Android/test-file-02-07'  # optional string
           overwrite: "true" # optional boolean

@@ -5,36 +5,27 @@ name: google-drive-transfer
 on:
   workflow_dispatch: {}
 
-#env:
-#   FILENAME: ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk
-
-
 jobs:
   build:
     name: Build my project 
     runs-on: ubuntu-latest
     steps:
-      - name: set_file_name
-        run: echo "FILENAME=ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk" >> $GITHUB_ENV
+      # space
+      
+      - name: space before
+        run: df -h
       - name: transfer
         run: |
-          echo "test" > ${{ env.FILENAME }}
+          echo "test" > test-file
           pwd
           ls -lt
-          cat ${{ env.FILENAME }}
-
-    # ok, lets just use a plain name like we had before
-
-      - name: make plain
-        run: echo "blah" > test_file
-
-
+          cat test-file
 
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
-          filename: test_file
+          filename: "/github/workspace/test-file"
           folderId: ${{ secrets.FOLDER_ID }}
-          # name: 'Android/test-file-02-07'  # optional string
+          name: "test-file-02-07" # optional string
           overwrite: "true" # optional boolean

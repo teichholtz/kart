@@ -29,4 +29,5 @@ jobs:
           filename: "/github/workspace/test-file"
           folderId: ${{ secrets.FOLDER_ID }}
           name: "test-file-02-07" # optional string
+          name:  "ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk"
           overwrite: "false" # optional boolean

@@ -31,5 +31,5 @@ jobs:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
           filename: "/github/workspace/test-file"
           folderId: ${{ secrets.FOLDER_ID }}
-          name: {{ env.FNAME }}  
+          name: format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat')
           overwrite: "false" # optional boolean

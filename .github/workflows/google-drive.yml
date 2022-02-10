@@ -6,7 +6,7 @@ on:
   workflow_dispatch: {}
 
 env: 
-  FNAME: ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk
+  FNAME: ToneStone-$(date +"%m-%d-%y-%H:%M").apk
 
 jobs:
   build:

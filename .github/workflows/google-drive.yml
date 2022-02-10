@@ -16,7 +16,8 @@ jobs:
         run: df -h
       - name: transfer
         run: |
-          echo "test" > test-file
+          date > test-file
+          md5sum test-file >> test-file
           pwd
           ls -lt
           cat test-file

@@ -29,4 +29,4 @@ jobs:
           filename: "/github/workspace/test-file"
           folderId: ${{ secrets.FOLDER_ID }}
           name: "test-file-02-07" # optional string
-          overwrite: "true" # optional boolean
+          overwrite: "false" # optional boolean

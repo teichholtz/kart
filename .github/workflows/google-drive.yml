@@ -5,6 +5,9 @@ name: google-drive-transfer
 on:
   workflow_dispatch: {}
 
+env: 
+  FNAME: ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk
+
 jobs:
   build:
     name: Build my project 
@@ -28,5 +31,5 @@ jobs:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
           filename: "/github/workspace/test-file"
           folderId: ${{ secrets.FOLDER_ID }}
-          name:  'ToneStone-"$(date +"%m-%d-%y-%H:%M")".apk'
+          name: $FNAME  
           overwrite: "false" # optional boolean

@@ -21,11 +21,12 @@ jobs:
           sudo apt-get install zip
           zip -r archive.zip *
 
-      - name: Upload to gdrive
-        uses: adityak74/google-drive-upload-git-action@main
+      - name: google-drive-upload-git-action
+        uses: adityak74/google-drive-upload-git-action@v0.1
         with:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
           filename: "archive.zip"
           folderId: ${{ secrets.FOLDER_ID }}
           name: "documentation.zip" # optional string
           overwrite: "true" # optional boolean
+

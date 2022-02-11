@@ -27,6 +27,6 @@ jobs:
         with:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
           filename: "/github/workspace/test-file"
-          folderId: ${{ secrets.FOLDER_ID }}
+          folderId: ${{ secrets.FOLDER_ID_ANDROID }}
           name: ToneStone-${{ steps.date.outputs.date }}.apk
           overwrite: "false" # optional boolean

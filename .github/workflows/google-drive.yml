@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get current date
-        id: date
-        run:  echo "::set-output name=date::$(date +'%Y-%m-%d-%M')"
+        id: get-date
+        run:  echo "::set-output name=today-date::$(date +'%Y-%m-%d-%M')"
       - name: transfer
         run: |
           date > test-file
@@ -28,5 +28,5 @@ jobs:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
           filename: "/github/workspace/test-file"
           folderId: ${{ secrets.FOLDER_ID_ANDROID }}
-          name: ToneStone-${{ steps.date.outputs.date }}.apk
+          name: ToneStone-${{ steps.get-date.outputs.today-date }}.apk
           overwrite: "false" # optional boolean

@@ -5,6 +5,10 @@ name: google-drive-transfer
 on:
   workflow_dispatch: {}
 
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30,50 5,17,19 * * *'
 
 jobs:
   build:

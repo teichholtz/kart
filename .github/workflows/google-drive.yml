@@ -5,7 +5,7 @@ on:
   schedule:
   # min hou dom mon dow (0=sunday)
   # * is a special character in YAML so you have to quote this string
-    - cron:  '40 15 * * *'
+    - cron:  '55 20 * * *'
 
 jobs:
   build:

@@ -1,4 +1,4 @@
-name: google-drive-transfer
+name: google-drive-transfer-copy
 
 on:
   schedule:

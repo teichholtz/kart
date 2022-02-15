@@ -1,0 +1,104 @@
+name: Build Anbdroid cron schedule
+
+  on:
+  schedule:
+  # min how dom mon dow (0=sunday)
+  # * is a special character in YAML so you have to quote this string
+  # I'm sure we will adjust this in the future but I have it set to build at 11:55PM everynight
+  # I can see that we will want a mechanism to evaluate if there were any commits from the last time
+  # it built also. 
+  
+    - cron:  '55 23 * * * '
+
+
+jobs:
+  build:
+    name: Build my project
+    runs-on: ubuntu-latest
+    steps:
+
+      # we need the repo checked out first since we need the free_disk_space.sh script
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+          ref: develop
+
+      - name: space before we build
+        run: df -h
+                
+      # Git LFS
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+          
+      # Cache
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # commenting out the test for now, they have not had an issue.
+      # Test
+      #- name: Run tests
+      #  uses: game-ci/unity-test-runner@v2
+      #  env:
+      #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      #    githubToken: ${{ secrets.GITHUB_TOKEN }}
+      
+      
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: Android
+          buildMethod: AutomaticBuild.BuildAndroidVR
+
+      #   targetPlatform: Android
+      
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: Build/Android
+
+
+      ########
+      # get the date to name the file on transfer
+
+      - name: Get current date
+        id: get-date
+        run:  echo "::set-output name=today-date::$(date +'%Y-%m-%d-%M')"
+      
+      # Upload to our google drive! Note:  The folder ID in secrets should be the ID of the Builds/Android 
+      # subdirectory.  
+
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
+          filename: Build/Android/ToneStone.apk
+          folderId: ${{ secrets.FOLDER_ID_ANDROID }}
+          name: ToneStone-${{ steps.get-date.outputs.today-date }}.apk
+          # Note:  The transfer only worked the first time when overwrite was set to True
+          overwrite: "false" 
+
+      # Check space
+      - run: df -h

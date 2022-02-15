@@ -58,17 +58,17 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          targetPlatform: Android
+          targetPlatform: StandaloneOSX
           buildMethod: BuildMacOSDesktop()
 
-      #   targetPlatform: Android
+      #   targetPlatform: StandaloneOSX
       
 
       # Output
       - uses: actions/upload-artifact@v2
         with:
           name: Build
-          path: Build/Android
+          path: Build/osx
 
 
       ########
@@ -78,7 +78,7 @@ jobs:
         id: get-date
         run:  echo "::set-output name=today-date::$(date +'%Y-%m-%d-%M')"
       
-      # Upload to our google drive! Note:  The folder ID in secrets should be the ID of the Builds/Android 
+      # Upload to our google drive! Note:  The folder ID in secrets should be the ID of the Builds/MacosX
       # subdirectory.  
 
       - name: Upload to gdrive

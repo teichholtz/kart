@@ -1,6 +1,6 @@
 name: Build Anbdroid cron schedule
 
-  on:
+on:
   schedule:
   # min how dom mon dow (0=sunday)
   # * is a special character in YAML so you have to quote this string

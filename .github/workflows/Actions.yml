@@ -1,16 +1,9 @@
-name: Build Anbdroid cron schedule
+name: google-drive-transfer
 
 on:
   schedule:
-  # min how dom mon dow (0=sunday)
-  # * is a special character in YAML so you have to quote this string
-  # I'm sure we will adjust this in the future but I have it set to build at 11:55PM everynight
-  # I can see that we will want a mechanism to evaluate if there were any commits from the last time
-  # it built also. 
-  
-    - cron:  '55 23 * * * '
-
-
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30,50 5,17,19,20,22 * * *'
 jobs:
   build:
     name: Build my project

@@ -3,9 +3,9 @@ name: google-drive-transfer
 
 on:
   schedule:
-  # min how dom mon dow (0=sunday)
+  # min hou dom mon dow (0=sunday)
   # * is a special character in YAML so you have to quote this string
-    - cron:  '55 23 * * 0-5'
+    - cron:  '40 15 * * *'
 
 jobs:
   build:

@@ -1,0 +1,95 @@
+name: Build Macosx Crontab 
+on:
+  workflow_dispatch: {}
+  
+jobs:
+  build:
+    name: Build Macosx
+    runs-on: ubuntu-latest
+    steps:
+
+      # we need the repo checked out first since we need the free_disk_space.sh script
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+          ref: develop
+
+      - name: space before we build
+        run: df -h
+                
+      # Git LFS
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+          
+      # Cache
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # commenting out the test for now, they have not had an issue.
+      # Test
+      #- name: Run tests
+      #  uses: game-ci/unity-test-runner@v2
+      #  env:
+      #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      #    githubToken: ${{ secrets.GITHUB_TOKEN }}
+      
+      
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: StandaloneOSX
+          buildMethod: BuildMacOSDesktop()
+
+      #   targetPlatform: StandaloneOSX
+      
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: Build/osx
+
+
+      ########
+      # get the date to name the file on transfer
+
+      - name: Get current date
+        id: get-date
+        run:  echo "::set-output name=today-date::$(date +'%Y-%m-%d-%M')"
+      
+      # Upload to our google drive! Note:  The folder ID in secrets should be the ID of the Builds/MacosX
+      # subdirectory.  
+
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
+          filename: Build/osx/ToneStone
+          folderId: ${{ secrets.FOLDER_ID_MACOSX }}
+          name: ToneStone-${{ steps.get-date.outputs.today-date }}
+          # Note:  The transfer only worked the first time when overwrite was set to True
+          overwrite: "false" 
+
+      # Check space
+      - run: df -h

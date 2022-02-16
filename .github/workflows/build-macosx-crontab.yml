@@ -1,7 +1,12 @@
 name: Build Macosx Crontab 
+
 on:
-  workflow_dispatch: {}
-  
+  schedule:
+  # min hou dom mon dow (0=sunday)
+  # Time is UTC time!
+  # * is a special character in YAML so you have to quote this string
+    - cron:  '55 20 * * *'
+
 jobs:
   build:
     name: Build Macosx
